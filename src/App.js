@@ -1,27 +1,35 @@
-import { View, StyleSheet, SafeAreaView, FlatList,  } from 'react-native';
-import { Header, ScaleItem } from './components';
+import { View, StyleSheet, SafeAreaView, Text, Button } from 'react-native';
 
-import data from '../src/data'
-import { COLORS } from './components/themes';
+import { Header, } from './components';
+import { Scale, ScaleDolor } from './screens';
+import { COLORS } from './themes'
+import { useState } from 'react';
 
 const App = () => { 
 
-  const onSelectedScale = (scaleId) => {
-    console.warn({ scaleId });
+  const scaleDefault = {
+    scaleId: null,
+    color: COLORS.primary,
+  }
+
+  const [isScaleSelected, setIsScaleSelected] = useState(false);
+  const [selectedScale, setSelectedScale] = useState(scaleDefault)
+
+  const onHandleSelectedScale = (scaleId, color) => {
+    setIsScaleSelected(!isScaleSelected)
+    console.warn({ scaleId, color });
+    setSelectedScale(scaleDefault);
+  }
+
+  const onHandleNavigate = () => {
+    setIsScaleSelected(!isScaleSelected)
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-       <Header title='Escalas de Sedo Analgesia'/>
-       <FlatList 
-       data={data}
-       style={styles.scaleContainer}
-       contentContainerStyle={styles.listScale}
-       renderItem={({item}) => <ScaleItem {...item} onSelectedScale={onSelectedScale}/> }
-       keyExtractor={(item) => item.id}
-       showsVerticalScrollIndicator={false}
-       />
+       <Header title='Escalas de Sedo Analgesia'/> 
+       {isScaleSelected ? <ScaleDolor onHandleGoBack={onHandleNavigate}/> : <Scale onSelectedScale={onHandleSelectedScale}/>}
       </View>
     </SafeAreaView>
   );
@@ -30,16 +38,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
   },
-  scaleContainer:{
-    marginHorizontal:15,
-    marginTop:15,
-  },
-  listScale:{
-    gap:15,
-    paddingBottom: 20,
-  }
 })
 
 export default App;

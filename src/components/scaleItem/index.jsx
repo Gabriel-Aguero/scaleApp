@@ -1,7 +1,7 @@
 import { TouchableHighlight, Text, View } from "react-native";
 
 import { styles } from './styles.js'
-import { COLORS, FONTS } from '../themes';
+import { COLORS } from '../../themes/index.js';
 
 const ScaleItem = ({ id, title, backgroundColor, description, onSelectedScale }) => {
 

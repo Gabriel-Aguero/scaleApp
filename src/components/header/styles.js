@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from "react-native";
-import { COLORS, FONTS } from '../themes'
+import { COLORS, FONTS } from '../../themes'
 
 export const styles = StyleSheet.create({
     container: {                
